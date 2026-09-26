@@ -1,0 +1,78 @@
+{
+  "name": "selfterm-linux",
+  "version": "0.1.0",
+  "description": "Self-hosted SSH manager and Linux desktop terminal client.",
+  "homepage": "https://selfterm.local",
+  "author": {
+    "name": "SelfTerm",
+    "email": "selfterm@example.local"
+  },
+  "main": "electron/main.cjs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"vite --host 127.0.0.1\" \"wait-on tcp:5173 && electron .\"",
+    "server": "node server/server.js",
+    "build": "vite build",
+    "dist": "npm run build && electron-builder --linux AppImage deb",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@fontsource/cascadia-code": "^5.2.3",
+    "@fontsource/dm-sans": "^5.2.8",
+    "@fontsource/fira-code": "^5.2.7",
+    "@fontsource/geist-sans": "^5.2.5",
+    "@fontsource/ibm-plex-mono": "^5.2.7",
+    "@fontsource/ibm-plex-sans": "^5.2.8",
+    "@fontsource/inconsolata": "^5.2.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
+    "@fontsource/manrope": "^5.2.8",
+    "@fontsource/monaspace-neon": "^5.2.5",
+    "@fontsource/nunito-sans": "^5.2.7",
+    "@fontsource/roboto-mono": "^5.2.9",
+    "@fontsource/rubik": "^5.2.8",
+    "@fontsource/source-code-pro": "^5.2.7",
+    "@fontsource/source-sans-3": "^5.2.9",
+    "@fontsource/space-mono": "^5.2.9",
+    "@fontsource/ubuntu": "^5.2.8",
+    "@fontsource/ubuntu-mono": "^5.2.8",
+    "@fontsource/work-sans": "^5.2.8",
+    "@xterm/addon-fit": "^0.10.0",
+    "@xterm/xterm": "^5.5.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "ssh2": "^1.16.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "electron": "^33.3.2",
+    "electron-builder": "^25.1.8",
+    "vite": "^6.0.7",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "dev.selfterm.linux",
+    "productName": "SelfTerm",
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "build",
+      "output": "release"
+    },
+    "linux": {
+      "category": "Development",
+      "maintainer": "SelfTerm <selfterm@example.local>",
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    }
+  }
+}

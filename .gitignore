@@ -1,0 +1,109 @@
+# Dependencies and generated frontend output (lock files stay tracked).
+node_modules/
+dist/
+.vite/
+.cache/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+
+# Electron/Tauri installers and Rust build output.
+/release/
+/out/
+target/
+# Keep Cargo.lock, package-lock.json and application icons/resources tracked.
+# Do not ignore build/: it can contain hand-authored packaging resources.
+
+# Local runtime state. Never publish real vaults or server database files.
+/data/
+/backups/
+/apps/client/data/
+/apps/server/data/
+/apps/server/backups/
+vault.json
+vault.json.*
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+
+# Environment secrets; documented templates remain versioned.
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+!.env.*.example
+!.env.*.sample
+!.env.*.template
+.envrc.local
+/secrets/
+/deploy/secrets/
+.ssh/
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.mobileprovision
+*.provisionprofile
+# PEM files may be public certificates or synthetic test fixtures: review them
+# before staging rather than hiding every *.pem file indiscriminately.
+
+# Logs, crash dumps and temporary files.
+*.log
+*.pid
+*.pid.lock
+*.dmp
+*.stackdump
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Android generated output. Keep Gradle wrappers and native source tracked.
+.gradle/
+.kotlin/
+.cxx/
+local.properties
+captures/
+**/gen/android/build/
+**/gen/android/app/build/
+**/gen/android/app/release/
+**/gen/android/.idea/
+
+# Apple local/generated output. Keep Xcode projects and shared schemes tracked.
+DerivedData/
+Pods/
+.symlinks/
+xcuserdata/
+*.xcuserstate
+*.xcarchive
+*.ipa
+*.dSYM/
+**/gen/apple/build/
+# Podfile.lock remains tracked when CocoaPods is used.
+
+# Editor and operating-system local files; useful VS Code config can be shared.
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
