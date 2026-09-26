@@ -1,8 +1,10 @@
-# SelfTerm Linux
+# SelfTerm
 
-SelfTerm is a Linux desktop SSH manager with a self-hosted encrypted sync server.
+SelfTerm is an SSH manager with a self-hosted encrypted sync server.
 
-It is designed around a Termius-like workflow: a compact host vault, saved SSH profiles, terminal tabs, and push/pull sync to your own server. It does not use Termius branding, services, or proprietary assets.
+It provides a compact host vault, saved SSH profiles, terminal tabs, and push/pull sync to your own server.
+
+This branch preserves the Electron/Node.js implementation. The [Rust migration roadmap on main](https://github.com/asobitov2005/selfterm/blob/main/docs/rust-migration/README.md) targets Windows, Linux, macOS, Android, and iOS, with persistent local SQLite and optional cloud or self-hosted sync.
 
 ## Run the desktop app
 
@@ -31,7 +33,7 @@ The AppImage and `.deb` output will be in `release/`.
 
 ## Security notes
 
-- Passwords are requested per session and are not saved.
+- Passwords are requested per session unless you choose to save them using the operating system credential storage.
 - Private keys are read from your local file path when connecting.
 - Sync uses AES-256-GCM with a key derived from your passphrase via scrypt.
 - Put the sync server behind Tailscale, WireGuard, Cloudflare Access, or a reverse proxy with HTTPS.
