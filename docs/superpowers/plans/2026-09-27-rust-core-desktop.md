@@ -141,3 +141,7 @@
 ## Dependency va handoff
 
 A1 -> A2 -> A3 -> A4 -> A5; A6 uses A2/A4, A7 uses A6, A8 uses A3–A7, A9 uses A8. B1 begins after A2 contract; B5 client sync after A4/A8. C1 can begin early feasibility after A1, stable mobile release after B5/B6. Owner review of this plan precedes production implementation; this planning task does not execute any A task.
+
+## Expanded UI/SFTP/RDP/VNC integration contract
+
+User-approved planning scope now includes D/E plans: [UI/SFTP](2026-09-27-ui-sftp.md), [RDP/VNC](2026-09-27-rdp-vnc.md). Existing Termius-like SelfTerm UI must remain visually consistent; preserve sidebar/hosts/tabs/themes/fonts, additive panels only. E2 owns Host->ConnectionProfile schema migration (legacy IDs/history/secrets preserved); A2 supplies base IDs/envelope/error contracts. A6 transport is refcounted for PTY/SFTP/scoped VNC SSH channels; A7 exposes narrowly scoped adapters, A8 keeps current UI. B5 merges connection profiles and tombstones, never file contents/screens/clipboard; server envelope contract is unchanged. C4 background/lock interrupts transfers explicitly and closes graphical sessions; no silent transfer restart/input replay. C6/C7 full stable distribution requires D8 and E8 all-platform evidence. Earlier SSH-only beta can remain separately labeled.

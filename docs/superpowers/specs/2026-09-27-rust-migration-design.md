@@ -9,6 +9,8 @@ Foydalanuvchining talabi: mavjud kodni GitHub’da saqlash, Electron versiyasini
 
 Asosiy tavsiya: Tauri 2 shell, Rust domain/SSH/crypto/storage/sync, Rust Axum server, umumiy React/TypeScript/xterm.js UI. UI’ni to‘liq Rustga ko‘chirish talab etilsa bu spec qayta ko‘rib chiqiladi; Dioxus variantini ushbu scope’ga yashirincha qo‘shmaymiz.
 
+Scope extension: [preserved UI/SFTP](2026-09-27-ui-workspace-sftp-design.md) va [RDP/VNC](2026-09-27-rdp-vnc-design.md). Bu specs yangi protocol/UI contractlari uchun authoritative; oldingi Host-only model E2 migration orqali kengayadi. Hozirgi Termiusga o‘xshash UI saqlanadi; yangi funksiyalar existing workspace’ga qo‘shiladi.
+
 M0 faqat manba kodni saqlash va hujjatlar. Quyida tasvirlangan API, Rust fayllar va Docker paketlar hozircha mavjud emas.
 
 ## 2. Baseline auditi va parity
@@ -52,6 +54,10 @@ flowchart LR
   CORE --> STORE[OS credential store]
   CORE --> API[Selected HTTPS sync backend]
   SSH --> TARGET[User SSH target servers]
+  IPC --> SFTP[Rust SFTP on shared SSH transport]
+  SFTP --> TARGET
+  IPC --> DESKTOP[Rust RDP/VNC engines]
+  DESKTOP --> REMOTE[User remote desktops: TLS or scoped SSH stream]
   API --> DB[PostgreSQL: users, sessions, encrypted vaults]
 ```
 
@@ -88,6 +94,10 @@ crates/
                               # secrets, legacy, sync, error
   selfterm-protocol/src/       # auth DTO, vault envelope, errors, API schema
   selfterm-ssh/src/            # auth, host_keys, sessions, transport
+  selfterm-sftp/src/           # browser, transfers, safe commit, editor
+  selfterm-rdp/src/            # RDP TLS/NLA/session
+  selfterm-vnc/src/            # RFB/security/decoder
+  selfterm-remote-desktop/src/ # compositor, input, clipboard, lifecycle
 apps/
   client/
     package.json
@@ -107,6 +117,8 @@ docs/                         # design, task plans, operators, validation
 ```
 
 `selfterm-core` Tauri’ya bog‘lanmaydi; `selfterm-ssh` UI’ya bog‘lanmaydi; `selfterm-protocol` private vault plaintext modeliga bog‘lanmaydi. Server faqat public protocolga bog‘lanadi. UI backenddan redacted views oladi.
+
+Server ushbu yangi protocol crates’ga dependency olmaydi. File contents, transfer bytes, clipboard va framebuffer client-target orasida; cloud/self-host sync faqat encrypted connection profiles. Device-local drafts/queue metadata SQLite’da encrypted, foydalanuvchi explicit download qilgan destination fayli esa tanlangan filesystemda odatdagi fayl.
 
 ## 6. Domain va local storage
 

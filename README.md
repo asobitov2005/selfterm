@@ -6,13 +6,17 @@ It provides a compact host vault, saved SSH profiles, terminal tabs, and push/pu
 
 ## Cross-platform Rust roadmap
 
-The current implementation uses Electron, React, and Node.js. The planned Rust/Tauri version targets **Windows, Linux, macOS, Android, and iOS**, with persistent local SQLite storage and optional cloud or self-hosted sync. The cross-platform version is not implemented yet.
+The current implementation uses Electron, React, and Node.js. The planned Rust/Tauri version targets **Windows, Linux, macOS, Android, and iOS**, with persistent local SQLite storage and optional cloud or self-hosted sync. The roadmap adds SFTP, RDP, and VNC while preserving the current familiar UI, sidebar, hosts, tabs, and themes. These features and the cross-platform version are not implemented yet.
 
 - [Detailed migration roadmap](docs/rust-migration/README.md)
 - [Architecture, encryption, and API design](docs/superpowers/specs/2026-09-27-rust-migration-design.md)
 - [Rust core and desktop plan](docs/superpowers/plans/2026-09-27-rust-core-desktop.md)
 - [Cloud and self-hosted backend plan](docs/superpowers/plans/2026-09-27-rust-sync-service.md)
 - [Android, iOS, and release plan](docs/superpowers/plans/2026-09-27-rust-mobile-release.md)
+- [Preserved UI and SFTP workspace design](docs/superpowers/specs/2026-09-27-ui-workspace-sftp-design.md)
+- [RDP and VNC design](docs/superpowers/specs/2026-09-27-rdp-vnc-design.md)
+- [UI and SFTP implementation plan](docs/superpowers/plans/2026-09-27-ui-sftp.md)
+- [RDP and VNC implementation plan](docs/superpowers/plans/2026-09-27-rdp-vnc.md)
 - [Verification and release matrix](docs/rust-migration/validation.md)
 
 The [`electronjs`](https://github.com/asobitov2005/selfterm/tree/electronjs) branch preserves the original application. `main` contains the source and migration documentation.

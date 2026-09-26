@@ -4,7 +4,7 @@ Sana: 2026-09-27. Holat: ko‘rib chiqish uchun tayyor reja; Rust implementatsiy
 
 ## Maqsad
 
-Windows, Linux, macOS, Android va iOS uchun bitta umumiy Rust yadrosiga ega SSH ilovasi yaratish. Qurilmada alohida server ishlamaydi: ma’lumotlar doimiy SQLite bazasida saqlanadi, maxfiy records shifrlanadi. Foydalanuvchi local-only, bizning cloud xizmatimiz yoki o‘zining self-hosted serverini tanlay oladi. Cloud va self-hosted bir xil Rust backend va API’dan foydalanadi.
+Windows, Linux, macOS, Android va iOS uchun bitta umumiy Rust yadrosiga ega SSH/SFTP/RDP/VNC ilovasi yaratish. Qurilmada alohida server ishlamaydi: ma’lumotlar doimiy SQLite bazasida saqlanadi, maxfiy records shifrlanadi. Foydalanuvchi local-only, bizning cloud xizmatimiz yoki o‘zining self-hosted serverini tanlay oladi. Cloud va self-hosted bir xil Rust backend va API’dan foydalanadi.
 
 Nom hozircha **SelfTerm**. `Roamsh` yoki boshqa brend hali tanlanmagan; migratsiya davomida nom, package ID va domain’ni o‘zboshimchalik bilan almashtirmaymiz.
 
@@ -45,7 +45,11 @@ Nom hozircha **SelfTerm**. `Roamsh` yoki boshqa brend hali tanlanmagan; migratsi
 2. [A: Rust core va desktop migratsiyasi](../superpowers/plans/2026-09-27-rust-core-desktop.md) — baseline’dan Windows/Linux/macOS beta’gacha.
 3. [B: Sync backend, cloud va self-hosted](../superpowers/plans/2026-09-27-rust-sync-service.md) — ko‘p foydalanuvchi, E2EE sync, deployment va restore.
 4. [C: Android, iOS va release](../superpowers/plans/2026-09-27-rust-mobile-release.md) — platforma integratsiyasi, mobil terminal va tarqatish.
-5. [Tekshiruv va release matritsasi](validation.md) — har bosqichning chiqish shartlari.
+5. [UI va SFTP spetsifikatsiyasi](../superpowers/specs/2026-09-27-ui-workspace-sftp-design.md) — hozirgi Termiusga o‘xshash UI saqlanadi, SSH yonidagi Files, context menu, replace va editor.
+6. [RDP/VNC spetsifikatsiyasi](../superpowers/specs/2026-09-27-rdp-vnc-design.md) — Rust engines, trust, framebuffer, desktop/mobile input.
+7. [D: UI/SFTP implementation](../superpowers/plans/2026-09-27-ui-sftp.md) — 8 task.
+8. [E: RDP/VNC implementation](../superpowers/plans/2026-09-27-rdp-vnc.md) — 8 task.
+9. [Tekshiruv va release matritsasi](validation.md) — har bosqichning chiqish shartlari.
 
 ## Bosqichlar va bog‘liqliklar
 
@@ -58,13 +62,15 @@ Nom hozircha **SelfTerm**. `Roamsh` yoki boshqa brend hali tanlanmagan; migratsi
 | M4 | Multi-user Rust sync server | M2 contractlari | Tenant isolation, auth, CAS va E2EE testlari |
 | M5 | Client sync + self-hosted beta | M3 va M4 | Offline/conflict/recovery/URL switch + restore sinovlari |
 | M6 | Android va iOS beta | M1, M3, M5 | Real device keyboard, key import, lifecycle testlari |
-| M7 | Public cloud va stable release | M5 va M6 | Backup restore, security review, signed platform buildlari |
+| M6F | Existing UI + SSH/SFTP workspace beta | M3, D1–D7, M6 for mobile | Safe replace/editor/native picker va current UI parity |
+| M6R | RDP/VNC beta | E1–E7, M6 for mobile | TLS/NLA/trust, secure VNC, rendering/input on actual devices |
+| M7 | Public cloud va full stable release | M5, M6, D8, E8 | Backup restore, security review, signed platform builds va all protocol gates |
 
 Backend va desktop ishlari domain/protocol contractlari tasdiqlangandan keyin parallel rivojlanishi mumkin. Birinchi kichik platforma probe’i mobil muammolarni oxirigacha yashirmaydi. Ushbu hujjatlar hech qanday avtomatik subagent ishini boshlamaydi.
 
 ## Vaqt va resurs
 
-Bu sanaga bog‘langan va’da emas: bitta tajribali full-time engineer uchun dastlabki **12–20 engineer-week** diapazon, mustaqil review va app-store kutishlari bundan tashqari. Rust/Tauri yoki mobil bilan tajriba kam bo‘lsa ko‘proq vaqt kerak bo‘ladi. M1 natijasida qayta baholanadi.
+Bu sanaga bog‘langan va’da emas: kengaytirilgan scope bo‘yicha bitta tajribali full-time engineer uchun dastlabki **26–44 engineer-week** diapazon, mustaqil review va app-store kutishlari bundan tashqari. Rust/Tauri yoki mobil bilan tajriba kam bo‘lsa ko‘proq vaqt kerak bo‘ladi. M1/E1 natijasida qayta baholanadi. Oldingi 12–20 hafta faqat SSH/core/sync/mobile uchun edi; SFTP va RDP/VNC qo‘shilganidan keyin umumiy estimate almashtirildi.
 
 | Ish | Dastlabki taxmin |
 | --- | --- |
@@ -73,12 +79,15 @@ Bu sanaga bog‘langan va’da emas: bitta tajribali full-time engineer uchun da
 | SSH va desktop parity | 2–3 hafta |
 | Auth, backend, sync va deployment | 3–5 hafta |
 | Mobil adaptatsiya va release tekshiruvlari | 4–7 hafta |
+| Existing UI integratsiyasi, SFTP/transfers/editor | 6–10 hafta |
+| RDP/VNC engines, rendering/input va interoperability | 8–14 hafta |
 
 Kerak bo‘ladigan resurslar: Windows runner/device, Linux X11 va Wayland muhitlari, macOS/Xcode, Android device, iPhone/iPad, signing akkauntlari, domain, HTTPS endpoint, staging server, backup storage va email yetkazish xizmati. Cloud hajmi/budjeti haqiqiy load testidan keyin aniqlanadi.
 
 ## Reja chegaralari
 
-- Browser-only SSH, relay/bastion, Mosh roaming, SFTP, RDP, VNC, tunneling, team-shared vault va billing birinchi release scope’iga kirmaydi.
+- SSH, SFTP, RDP va VNC full stable release scope’ida; current Termiusga o‘xshash UI saqlanadi, umumiy redesign yo‘q. A–E jami 40 task.
+- Browser-only SSH, public relay/bastion, Mosh roaming, arbitrary port-forwarding UI, team-shared vault va billing scope’da yo‘q. VNC uchun narrowly scoped in-process SSH tunnel shu release’da bor.
 - SSH agent desktop’da platformaga mos tekshiriladi; mobilda imported key/password bilan ishlash asosiy yo‘l.
 - Windows x64, Linux x64, macOS Intel/Apple Silicon, Android arm64 va iOS arm64 birinchi maqsadlar. Boshqa CPU arxitekturalari keyingi release.
 - Local-only har doim ishlaydi; persistent SQLite app qayta ochilganda ham qoladi, cloud account va lokal server majburiy emas. Uninstall/device wipe uchun backup yoki sync zarur.

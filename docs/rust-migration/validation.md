@@ -104,3 +104,24 @@ E2E commands implementationda exact scriptlarga yoziladi: SSH container fixture 
 ## Evidence format
 
 Har required test uchun quyidagilar yoziladi: source commit, test/command, timestamp UTC, runner/device+OS+architecture, result, artifact hash/log location (redacted), reviewer, known limitation. NOT RUN yoki SKIPPED PASS hisoblanmaydi. Baseline branch preservation uchun remote Git ref hashes tekshiriladi; source SHA yo‘q bo‘lsa release provenance to‘liq emas.
+
+## Expanded scope gates — all currently NOT RUN
+
+| Check | Owner | Required evidence |
+| --- | --- | --- |
+| Current Termius-like UI preserved | D1/D6 | Baseline screenshots, sidebar/hosts/tabs/themes unchanged, files closed/open layouts |
+| SSH visible beside same-host SFTP | D6 | Terminal input/output continues during upload/edit/rename; independent panel close |
+| Context menu and mobile long-press | D3/D7 | Keyboard/visible actions equivalent, gesture ambiguity and focus tests |
+| Upload/download/replace atomic capability | D4 | Interrupted upload retains original; unsupported rename safe SaveAs; commit loss reconciliation |
+| External writer/dirty editor | D5 | Fingerprint conflict, UTF-8/CRLF, bounded binary rejection; SFTP CAS limitation documented |
+| Persistent encrypted drafts/queue | D4/D5 | Restart recovery, plaintext SQLite/WAL/log scan, lock cleanup |
+| Mobile native files | D7 | Android URI/iOS scoped permissions, stream bounds, lost grant, actual devices |
+| Profile schema + encrypted sync | E2/B5 | Legacy SSH ID/history preserved, old client rejects unsupported schema, protocol conflicts |
+| RDP TLS/NLA/cert trust | E3 | Credentials never precede trust; changed cert blocked; actual Windows NLA/xrdp |
+| VNC secure transport | E4 | Verified TLS or trusted in-process SSH; insecure default block, auth constraints |
+| Bounded protocol/compositor | E4/E5 | Malformed lengths/rectangles, CopyRect ordering, stalled renderer, measured RSS/frame budgets |
+| Desktop/mobile remote input | E6 | DPI/zoom/focus release, ViewOnly Rust gate, actual IME/touch/rotation |
+| Clipboard and lifecycle | E7 | Default off, per-session permission, lock/background clears frame/input/secret data |
+| All protocol stable release | D8/E8/C6 | Signed artifacts from reviewed commit, actual five-platform install/connect/use evidence |
+
+These gates extend the earlier stable checklist; none has passed yet. RDP/VNC engines and mobile support remain conditional on E1 results. Transfer/desktop bytes never go through sync server. Full release cannot be called complete while D8/E8 are unresolved.

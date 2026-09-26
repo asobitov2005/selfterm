@@ -128,3 +128,7 @@
 ## Execution order
 
 B1 -> B2 -> B3 -> B4. B5 requires A3/A4/A8 + B1–B3. B6 requires B5. B7 after B1–B4; integration acceptance requires B5. B8 requires B6/B7 va independent review. Core client lokal SQLite bazasida ishlaydi; PostgreSQL faqat tanlangan remote backend host’da. Birinchi self-hosted beta cloud production’dan oldin chiqadi.
+
+## Expanded UI/SFTP/RDP/VNC integration contract
+
+User-approved planning scope now includes D/E plans: [UI/SFTP](2026-09-27-ui-sftp.md), [RDP/VNC](2026-09-27-rdp-vnc.md). Existing Termius-like SelfTerm UI must remain visually consistent; preserve sidebar/hosts/tabs/themes/fonts, additive panels only. E2 owns Host->ConnectionProfile schema migration (legacy IDs/history/secrets preserved); A2 supplies base IDs/envelope/error contracts. A6 transport is refcounted for PTY/SFTP/scoped VNC SSH channels; A7 exposes narrowly scoped adapters, A8 keeps current UI. B5 merges connection profiles and tombstones, never file contents/screens/clipboard; server envelope contract is unchanged. C4 background/lock interrupts transfers explicitly and closes graphical sessions; no silent transfer restart/input replay. C6/C7 full stable distribution requires D8 and E8 all-platform evidence. Earlier SSH-only beta can remain separately labeled.
