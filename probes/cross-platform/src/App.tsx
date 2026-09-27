@@ -75,6 +75,7 @@ function App() {
     const timer = window.setTimeout(() => {
       void (async () => {
         await runStream();
+        await runSecureStore();
       })();
     }, 250);
     return () => window.clearTimeout(timer);

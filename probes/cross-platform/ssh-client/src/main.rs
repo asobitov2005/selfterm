@@ -16,10 +16,7 @@ impl Handler for TrustHandler {
         &mut self,
         presented: &russh::keys::PublicKeyOrCertificate,
     ) -> Result<bool, Self::Error> {
-        let fingerprint = format!(
-            "{}",
-            presented.public_key().fingerprint(HashAlg::Sha256)
-        );
+        let fingerprint = format!("{}", presented.public_key().fingerprint(HashAlg::Sha256));
         Ok(self.0.accepts(&fingerprint))
     }
 }
@@ -27,7 +24,9 @@ impl Handler for TrustHandler {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
     let mut args = env::args().skip(1);
-    let host = args.next().ok_or("usage: ssh-probe HOST PORT USER KEY PIN")?;
+    let host = args
+        .next()
+        .ok_or("usage: ssh-probe HOST PORT USER KEY PIN")?;
     let port: u16 = args.next().ok_or("missing port")?.parse()?;
     let user = args.next().ok_or("missing user")?;
     let key_path = PathBuf::from(args.next().ok_or("missing key path")?);
@@ -46,10 +45,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     .await?;
 
     let auth = session
-        .authenticate_publickey(
-            user,
-            PrivateKeyWithHashAlg::new(Arc::new(key), None),
-        )
+        .authenticate_publickey(user, PrivateKeyWithHashAlg::new(Arc::new(key), None))
         .await?;
     if !auth.success() {
         return Err("fixture rejected the Ed25519 key".into());

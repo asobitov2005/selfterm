@@ -14,7 +14,24 @@ cargo build --locked --manifest-path ssh-client/Cargo.toml
 python3 run-sshd-fixture.py
 ```
 
+Measure the planned Argon2id derivation with public synthetic inputs in an optimized build (the tool never prints the derived key):
+
+```sh
+cargo build --locked --release --example kdf --manifest-path ssh-client/Cargo.toml
+/usr/bin/time -v ssh-client/target/release/examples/kdf
+```
+
+Record all three timings and peak RSS. This excludes DB decryption and UI work; device unlock latency still needs separate measurements.
+
 Build the Tauri window on Ubuntu 24.04 with the [official Tauri Linux dependencies](https://tauri.app/start/prerequisites/). Then run `npm install`, `npm run build`, and `npm run tauri dev` inside this directory. Press **Test Rust output** and **Test secure storage**; type `o‘zbek ✓`, Enter, arrows, and Ctrl+C. Record OS/WebKitGTK versions, secure-store provider/result, 1 MiB callback time, terminal render latency, RSS, and artifacts in `../../docs/rust-migration/feasibility.md`.
+
+Launch through `npm run tauri dev`, which starts Vite before the native window. Running the debug binary alone requires Vite to be running at `http://localhost:1420`; otherwise the window displays `Connection refused`. Release builds embed the frontend and do not require Vite. This development server is not the sync backend.
+
+Run the app as your ordinary desktop user, in the same DBus session as the OS credential store. The stream and synthetic credential probes run automatically; credentials are deleted after readback. Do not run the app with sudo. If previous container builds created root-owned build artifacts, use a separate user-owned target directory:
+
+```sh
+CARGO_TARGET_DIR="$HOME/.cache/selfterm-probe/target" npm run tauri dev
+```
 
 ## Other platforms
 
