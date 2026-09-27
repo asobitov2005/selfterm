@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Terminal } from '@xterm/xterm';
 import { FitAddon } from '@xterm/addon-fit';
+import { nativeClient } from './nativeBridge.js';
+import SecurityDrawer from './SecurityDrawer.jsx';
 import {
   Check,
   ChevronDown,
@@ -302,6 +304,7 @@ function App() {
   const [editorHost, setEditorHost] = useState(null);
   const [connectHost, setConnectHost] = useState(null);
   const [syncOpen, setSyncOpen] = useState(false);
+  const [securityOpen, setSecurityOpen] = useState(false);
   const [appearanceOpen, setAppearanceOpen] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
   const [hostsPanelOpen, setHostsPanelOpen] = useState(false);
@@ -535,7 +538,7 @@ function App() {
         <button className="rail-button" title="Appearance" onClick={() => setAppearanceOpen(true)}>
           <Palette size={20} />
         </button>
-        <button className="rail-button" title="Settings" onClick={() => setSyncOpen(true)}>
+        <button className="rail-button" title="Settings" onClick={() => nativeClient ? setSecurityOpen(true) : setSyncOpen(true)}>
           <Settings size={20} />
         </button>
       </aside>
@@ -685,6 +688,8 @@ function App() {
       {connectHost && (
         <ConnectDialog host={connectHost} onClose={() => setConnectHost(null)} onConnect={(secrets) => openTab(connectHost, secrets)} />
       )}
+
+      {securityOpen && <SecurityDrawer onClose={() => setSecurityOpen(false)} onAppearance={() => { setSecurityOpen(false); setAppearanceOpen(true); }} />}
 
       {syncOpen && (
         <SyncDrawer

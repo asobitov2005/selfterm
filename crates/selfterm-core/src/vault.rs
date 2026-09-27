@@ -47,7 +47,15 @@ impl VaultService {
         self.unlocked.is_none()
     }
     pub fn create(&mut self, passphrase: &str) -> Result<(PublicVault, Zeroizing<String>)> {
+        self.create_with(passphrase, |_, _| Ok(()))
+    }
+    pub fn create_with(
+        &mut self,
+        passphrase: &str,
+        before_commit: impl FnOnce(Uuid, &VaultKey) -> Result<()>,
+    ) -> Result<(PublicVault, Zeroizing<String>)> {
         let (envelope, key, recovery) = crypto::create(passphrase, &VaultPayload::default())?;
+        before_commit(envelope.vault_id, &key)?;
         let generation = self.storage.save(&envelope, 0)?;
         self.unlocked = Some(Unlocked {
             envelope,
@@ -56,6 +64,34 @@ impl VaultService {
             payload: VaultPayload::default(),
         });
         Ok((self.view()?, recovery))
+    }
+    pub fn device_secret(&self) -> Result<Zeroizing<Vec<u8>>> {
+        Ok(self
+            .unlocked
+            .as_ref()
+            .ok_or(Error::Locked)?
+            .key
+            .device_secret())
+    }
+    pub fn unlock_device(&mut self, id: Uuid, secret: &[u8]) -> Result<PublicVault> {
+        self.lock();
+        let (envelope, generation) = self.storage.load(id)?.ok_or(Error::CorruptStorage)?;
+        let (key, payload) = crypto::unlock_device(&envelope, secret)?;
+        self.unlocked = Some(Unlocked {
+            envelope,
+            generation,
+            key,
+            payload,
+        });
+        self.view()
+    }
+    pub fn set_passphrase(&mut self, passphrase: &str) -> Result<Zeroizing<String>> {
+        let state = self.unlocked.as_mut().ok_or(Error::Locked)?;
+        let (envelope, recovery) = crypto::set_passphrase(&state.envelope, &state.key, passphrase)?;
+        let generation = self.storage.save(&envelope, state.generation)?;
+        state.envelope = envelope;
+        state.generation = generation;
+        Ok(recovery)
     }
     pub fn unlock(&mut self, id: Uuid, passphrase: &str) -> Result<PublicVault> {
         self.lock();

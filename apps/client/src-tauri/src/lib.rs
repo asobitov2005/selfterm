@@ -4,7 +4,10 @@ use selfterm_core::{
     vault::{PublicVault, VaultService},
 };
 use serde::{Deserialize, Serialize};
-use std::sync::{Arc, Mutex};
+use std::sync::{
+    atomic::{AtomicBool, Ordering},
+    Arc, Mutex,
+};
 use tauri::{Emitter, Manager, State};
 use uuid::Uuid;
 use zeroize::Zeroizing;
@@ -14,6 +17,158 @@ struct VaultWorker {
     last_active: std::time::Instant,
 }
 type Service = Arc<Mutex<VaultWorker>>;
+type Protection = Arc<AtomicBool>;
+
+fn device_entry(id: Uuid) -> selfterm_core::Result<keyring::Entry> {
+    keyring::Entry::new("dev.selfterm.client", &format!("vault-{id}"))
+        .map_err(|_| selfterm_core::Error::InvalidInput("OS secure storage unavailable"))
+}
+fn store_device_key(id: Uuid, secret: &[u8]) -> selfterm_core::Result<()> {
+    let entry = device_entry(id)?;
+    entry
+        .set_secret(secret)
+        .map_err(|_| selfterm_core::Error::InvalidInput("OS secure storage write failed"))?;
+    let read = Zeroizing::new(
+        entry
+            .get_secret()
+            .map_err(|_| selfterm_core::Error::InvalidInput("OS secure storage read failed"))?,
+    );
+    if read.as_slice() != secret {
+        return Err(selfterm_core::Error::InvalidInput(
+            "OS secure storage verification failed",
+        ));
+    }
+    Ok(())
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct Bootstrap {
+    id: Uuid,
+    password_enabled: bool,
+    unlocked: bool,
+}
+
+#[tauri::command]
+async fn vault_bootstrap(
+    state: State<'_, Service>,
+    protection: State<'_, Protection>,
+) -> Result<Bootstrap, String> {
+    let protection = protection.inner().clone();
+    work(state, move |vault| {
+        let ids = vault.vault_ids()?;
+        if ids.is_empty() {
+            // No user passphrase is requested. A fresh native key goes to the OS store
+            // before the encrypted envelope is committed to SQLite.
+            let internal = Zeroizing::new(format!("{}{}", Uuid::new_v4(), Uuid::new_v4()));
+            let mut staged_id = None;
+            let result = vault.create_with(&internal, |id, key| {
+                staged_id = Some(id);
+                store_device_key(id, &key.device_secret())
+            });
+            let (view, _) = match result {
+                Ok(created) => created,
+                Err(error) => {
+                    if let Some(id) = staged_id {
+                        if let Ok(entry) = device_entry(id) {
+                            let _ = entry.delete_credential();
+                        }
+                    }
+                    return Err(error);
+                }
+            };
+            protection.store(false, Ordering::SeqCst);
+            return Ok(Bootstrap {
+                id: view.id,
+                password_enabled: false,
+                unlocked: true,
+            });
+        }
+        if ids.len() != 1 {
+            return Err(selfterm_core::Error::InvalidInput(
+                "multiple local vaults need explicit selection",
+            ));
+        }
+        let id = ids[0];
+        match device_entry(id)?.get_secret() {
+            Ok(secret) => {
+                let secret = Zeroizing::new(secret);
+                vault.unlock_device(id, &secret)?;
+                protection.store(false, Ordering::SeqCst);
+                Ok(Bootstrap {
+                    id,
+                    password_enabled: false,
+                    unlocked: true,
+                })
+            }
+            Err(keyring::Error::NoEntry) => {
+                protection.store(true, Ordering::SeqCst);
+                Ok(Bootstrap {
+                    id,
+                    password_enabled: true,
+                    unlocked: false,
+                })
+            }
+            Err(_) => Err(selfterm_core::Error::InvalidInput(
+                "OS secure storage read failed",
+            )),
+        }
+    })
+    .await
+}
+
+#[tauri::command]
+fn vault_protection(protection: State<'_, Protection>) -> bool {
+    protection.load(Ordering::SeqCst)
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+struct ProtectionChanged {
+    password_enabled: bool,
+    recovery_key: Option<String>,
+}
+
+#[tauri::command]
+async fn vault_set_protection(
+    state: State<'_, Service>,
+    protection: State<'_, Protection>,
+    enabled: bool,
+    passphrase: Option<String>,
+) -> Result<ProtectionChanged, String> {
+    let protection = protection.inner().clone();
+    let passphrase = passphrase.map(Zeroizing::new);
+    work(state, move |vault| {
+        let id = vault.view()?.id;
+        if enabled {
+            let password = passphrase
+                .as_ref()
+                .ok_or(selfterm_core::Error::InvalidInput("enter a password"))?;
+            let recovery = vault.set_passphrase(password)?;
+            match device_entry(id)?.delete_credential() {
+                Ok(()) | Err(keyring::Error::NoEntry) => {}
+                Err(_) => {
+                    return Err(selfterm_core::Error::InvalidInput(
+                        "OS secure storage deletion failed; automatic unlock remains enabled",
+                    ))
+                }
+            }
+            protection.store(true, Ordering::SeqCst);
+            Ok(ProtectionChanged {
+                password_enabled: true,
+                recovery_key: Some(recovery.to_string()),
+            })
+        } else {
+            store_device_key(id, &vault.device_secret()?)?;
+            protection.store(false, Ordering::SeqCst);
+            Ok(ProtectionChanged {
+                password_enabled: false,
+                recovery_key: None,
+            })
+        }
+    })
+    .await
+}
 
 // KDF and SQLite work run on a blocking worker, never on the WebView event loop.
 async fn work<T: Send + 'static>(
@@ -146,11 +301,16 @@ pub fn run() {
                 last_active: std::time::Instant::now(),
             }));
             app.manage(service.clone());
+            let protection = Arc::new(AtomicBool::new(true));
+            app.manage(protection.clone());
             let handle = app.handle().clone();
             std::thread::spawn(move || loop {
                 std::thread::sleep(std::time::Duration::from_secs(30));
                 if let Ok(mut worker) = service.lock() {
-                    if !worker.vault.is_locked() && worker.last_active.elapsed().as_secs() >= 900 {
+                    if protection.load(Ordering::SeqCst)
+                        && !worker.vault.is_locked()
+                        && worker.last_active.elapsed().as_secs() >= 900
+                    {
                         worker.vault.lock();
                         let _ = handle.emit("vault-locked", ());
                     }
@@ -159,6 +319,9 @@ pub fn run() {
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
+            vault_bootstrap,
+            vault_protection,
+            vault_set_protection,
             vault_ids,
             vault_create,
             vault_unlock,

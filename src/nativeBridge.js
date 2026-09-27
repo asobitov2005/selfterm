@@ -67,6 +67,13 @@ if (nativeClient) {
 }
 
 export const vaultCommands = {
+  bootstrap: () => invoke('vault_bootstrap'),
+  protection: () => invoke('vault_protection'),
+  setProtection: async (enabled, passphrase) => {
+    const result = await invoke('vault_set_protection', { enabled, passphrase: passphrase || null });
+    window.dispatchEvent(new CustomEvent('selfterm-protection-changed', { detail: result.passwordEnabled }));
+    return result;
+  },
   list: () => invoke('vault_ids'),
   create: (passphrase) => invoke('vault_create', { passphrase }),
   unlock: (id, passphrase) => invoke('vault_unlock', { id, passphrase }),

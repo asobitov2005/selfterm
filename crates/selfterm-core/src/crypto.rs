@@ -10,6 +10,76 @@ use uuid::Uuid;
 use zeroize::Zeroizing;
 
 pub struct VaultKey(Zeroizing<[u8; 32]>);
+impl VaultKey {
+    /// Native OS secure-store adapter only; never expose through renderer IPC.
+    pub fn device_secret(&self) -> Zeroizing<Vec<u8>> {
+        Zeroizing::new(self.0.to_vec())
+    }
+}
+
+pub fn unlock_device(envelope: &EnvelopeV2, secret: &[u8]) -> Result<(VaultKey, VaultPayload)> {
+    envelope.validate().map_err(|_| Error::CorruptStorage)?;
+    let bytes: [u8; 32] = secret.try_into().map_err(|_| Error::WrongKey)?;
+    let key = VaultKey(Zeroizing::new(bytes));
+    let plaintext = open(
+        &key.0,
+        &envelope.nonce,
+        &envelope.ciphertext,
+        &aad(
+            "selfterm:v2:payload",
+            envelope.vault_id,
+            envelope.key_epoch.0,
+        ),
+    )?;
+    let payload: VaultPayload =
+        serde_json::from_slice(&plaintext).map_err(|_| Error::CorruptStorage)?;
+    payload.validate()?;
+    Ok((key, payload))
+}
+
+pub fn set_passphrase(
+    envelope: &EnvelopeV2,
+    key: &VaultKey,
+    passphrase: &str,
+) -> Result<(EnvelopeV2, Zeroizing<String>)> {
+    envelope.validate().map_err(|_| Error::CorruptStorage)?;
+    let salt = random::<16>()?;
+    let kek = derive(passphrase, &salt)?;
+    let wrap = seal(
+        &kek,
+        &*key.0,
+        &aad(
+            "selfterm:v2:passphrase",
+            envelope.vault_id,
+            envelope.key_epoch.0,
+        ),
+    )?;
+    let recovery = Zeroizing::new(random::<32>()?);
+    let recovery_wrap = seal(
+        &recovery,
+        &*key.0,
+        &aad(
+            "selfterm:v2:recovery",
+            envelope.vault_id,
+            envelope.key_epoch.0,
+        ),
+    )?;
+    let mut next = envelope.clone();
+    next.passphrase_wrap = PassphraseWrap {
+        kdf: "argon2id-v19".into(),
+        memory_ki_b: 65536,
+        iterations: 3,
+        parallelism: 4,
+        salt: URL_SAFE_NO_PAD.encode(salt),
+        nonce: wrap.nonce,
+        ciphertext: wrap.ciphertext,
+    };
+    next.recovery_wrap = recovery_wrap;
+    Ok((
+        next,
+        Zeroizing::new(URL_SAFE_NO_PAD.encode(recovery.as_slice())),
+    ))
+}
 
 fn random<const N: usize>() -> Result<[u8; N]> {
     let mut bytes = [0; N];

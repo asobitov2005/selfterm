@@ -10,7 +10,7 @@ The migration is developed on `feat/rust-migration`. The Electron baseline remai
 - Strict envelope validation before expensive key derivation; decimal string counters preserve the full unsigned 64-bit range.
 - Native unlocked vault service with host/settings changes, encrypted credential storage, redacted renderer views, deletion tombstones and secret cleanup.
 - Lock drops native secret/key owners. Wrong authentication does not replace an existing unlocked state with an empty vault.
-- Tauri application connects the existing UI to native vault creation/unlock, encrypted host CRUD and appearance settings. Creation shows a recovery key once. Native worker isolates SQLite/KDF work from the WebView event loop; manual and 15-minute idle locking drop unlocked state.
+- Tauri application connects the existing UI to native vault creation/unlock, encrypted host CRUD and appearance settings. Startup creates/opens a device-protected vault automatically; password protection is optional in Settings, and enabling it provides a recovery key. Native worker isolates SQLite/KDF work from the WebView event loop; manual and 15-minute idle locking apply only when optional password protection is enabled.
 - Tests cover reopening, wrong passwords, recovery, authenticated metadata tampering, unsupported KDF parameters, generation conflicts, corrupt file preservation, renderer redaction and absence of plaintext fixture labels/passwords in database files.
 
 ## Still required

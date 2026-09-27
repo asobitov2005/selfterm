@@ -17,3 +17,5 @@ selfterm-core = { path = "../../../crates/selfterm-core" }
 serde.workspace = true
 uuid.workspace = true
 zeroize.workspace = true
+
+keyring = "=4.2.0"
