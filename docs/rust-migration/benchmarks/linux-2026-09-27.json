@@ -1,0 +1,1027 @@
+{
+  "profile_root": "/tmp/selfterm-benchmark-4nl9wd4a",
+  "rounds": 3,
+  "settle_seconds": 15,
+  "sample_seconds": 30,
+  "cpu_percent_definition": "100% = one logical core",
+  "runs": [
+    {
+      "app": "electron",
+      "geometry": [
+        1280,
+        820
+      ],
+      "samples": [
+        {
+          "rss_kib": 661412,
+          "pss_kib": 295187,
+          "private_kib": 185420
+        },
+        {
+          "rss_kib": 661476,
+          "pss_kib": 295187,
+          "private_kib": 185420
+        },
+        {
+          "rss_kib": 661476,
+          "pss_kib": 295187,
+          "private_kib": 185420
+        },
+        {
+          "rss_kib": 661476,
+          "pss_kib": 295187,
+          "private_kib": 185420
+        },
+        {
+          "rss_kib": 661476,
+          "pss_kib": 295187,
+          "private_kib": 185420
+        },
+        {
+          "rss_kib": 661476,
+          "pss_kib": 295187,
+          "private_kib": 185420
+        },
+        {
+          "rss_kib": 661476,
+          "pss_kib": 295187,
+          "private_kib": 185420
+        },
+        {
+          "rss_kib": 661476,
+          "pss_kib": 295187,
+          "private_kib": 185420
+        },
+        {
+          "rss_kib": 661476,
+          "pss_kib": 295183,
+          "private_kib": 185420
+        },
+        {
+          "rss_kib": 661476,
+          "pss_kib": 295183,
+          "private_kib": 185420
+        },
+        {
+          "rss_kib": 661480,
+          "pss_kib": 295187,
+          "private_kib": 185424
+        },
+        {
+          "rss_kib": 661480,
+          "pss_kib": 295187,
+          "private_kib": 185424
+        },
+        {
+          "rss_kib": 661480,
+          "pss_kib": 295187,
+          "private_kib": 185424
+        },
+        {
+          "rss_kib": 661480,
+          "pss_kib": 295187,
+          "private_kib": 185424
+        },
+        {
+          "rss_kib": 661480,
+          "pss_kib": 295187,
+          "private_kib": 185424
+        },
+        {
+          "rss_kib": 657812,
+          "pss_kib": 291134,
+          "private_kib": 181052
+        },
+        {
+          "rss_kib": 657812,
+          "pss_kib": 291134,
+          "private_kib": 181052
+        },
+        {
+          "rss_kib": 657812,
+          "pss_kib": 291134,
+          "private_kib": 181052
+        },
+        {
+          "rss_kib": 657812,
+          "pss_kib": 291134,
+          "private_kib": 181052
+        },
+        {
+          "rss_kib": 657812,
+          "pss_kib": 291134,
+          "private_kib": 181052
+        },
+        {
+          "rss_kib": 657812,
+          "pss_kib": 291134,
+          "private_kib": 181052
+        },
+        {
+          "rss_kib": 657812,
+          "pss_kib": 291134,
+          "private_kib": 181052
+        },
+        {
+          "rss_kib": 657812,
+          "pss_kib": 291134,
+          "private_kib": 181052
+        },
+        {
+          "rss_kib": 657812,
+          "pss_kib": 291134,
+          "private_kib": 181052
+        },
+        {
+          "rss_kib": 657884,
+          "pss_kib": 291138,
+          "private_kib": 181052
+        },
+        {
+          "rss_kib": 657884,
+          "pss_kib": 291138,
+          "private_kib": 181052
+        },
+        {
+          "rss_kib": 657884,
+          "pss_kib": 291146,
+          "private_kib": 181052
+        },
+        {
+          "rss_kib": 657884,
+          "pss_kib": 291146,
+          "private_kib": 181052
+        }
+      ],
+      "duration_seconds": 30.00688896199972,
+      "idle_cpu_percent_one_core": 0.4332338489492532,
+      "startup_cpu_seconds_first_settle_period": 1.17,
+      "median_pss_mib": 288.2646484375,
+      "peak_pss_mib": 288.2685546875,
+      "median_rss_mib": 645.94140625,
+      "median_private_mib": 181.07421875,
+      "round": 1
+    },
+    {
+      "app": "tauri",
+      "geometry": [
+        1280,
+        820
+      ],
+      "samples": [
+        {
+          "rss_kib": 425512,
+          "pss_kib": 205153,
+          "private_kib": 157856
+        },
+        {
+          "rss_kib": 425512,
+          "pss_kib": 205153,
+          "private_kib": 157856
+        },
+        {
+          "rss_kib": 425512,
+          "pss_kib": 205153,
+          "private_kib": 157856
+        },
+        {
+          "rss_kib": 425512,
+          "pss_kib": 205153,
+          "private_kib": 157856
+        },
+        {
+          "rss_kib": 425512,
+          "pss_kib": 205153,
+          "private_kib": 157856
+        },
+        {
+          "rss_kib": 425516,
+          "pss_kib": 205157,
+          "private_kib": 157860
+        },
+        {
+          "rss_kib": 425516,
+          "pss_kib": 205157,
+          "private_kib": 157860
+        },
+        {
+          "rss_kib": 425516,
+          "pss_kib": 205157,
+          "private_kib": 157860
+        },
+        {
+          "rss_kib": 425160,
+          "pss_kib": 204801,
+          "private_kib": 157504
+        },
+        {
+          "rss_kib": 425160,
+          "pss_kib": 204801,
+          "private_kib": 157504
+        },
+        {
+          "rss_kib": 425160,
+          "pss_kib": 204802,
+          "private_kib": 157504
+        },
+        {
+          "rss_kib": 425160,
+          "pss_kib": 204802,
+          "private_kib": 157504
+        },
+        {
+          "rss_kib": 425160,
+          "pss_kib": 204802,
+          "private_kib": 157504
+        },
+        {
+          "rss_kib": 425160,
+          "pss_kib": 204802,
+          "private_kib": 157504
+        },
+        {
+          "rss_kib": 425160,
+          "pss_kib": 204802,
+          "private_kib": 157504
+        },
+        {
+          "rss_kib": 425228,
+          "pss_kib": 204806,
+          "private_kib": 157508
+        },
+        {
+          "rss_kib": 425232,
+          "pss_kib": 204810,
+          "private_kib": 157512
+        },
+        {
+          "rss_kib": 425232,
+          "pss_kib": 204810,
+          "private_kib": 157512
+        },
+        {
+          "rss_kib": 425220,
+          "pss_kib": 204798,
+          "private_kib": 157500
+        },
+        {
+          "rss_kib": 425220,
+          "pss_kib": 204798,
+          "private_kib": 157500
+        },
+        {
+          "rss_kib": 425220,
+          "pss_kib": 204798,
+          "private_kib": 157500
+        },
+        {
+          "rss_kib": 425220,
+          "pss_kib": 204798,
+          "private_kib": 157500
+        },
+        {
+          "rss_kib": 425220,
+          "pss_kib": 204798,
+          "private_kib": 157500
+        },
+        {
+          "rss_kib": 425220,
+          "pss_kib": 204798,
+          "private_kib": 157500
+        },
+        {
+          "rss_kib": 425220,
+          "pss_kib": 204798,
+          "private_kib": 157500
+        },
+        {
+          "rss_kib": 425220,
+          "pss_kib": 204777,
+          "private_kib": 157500
+        },
+        {
+          "rss_kib": 425220,
+          "pss_kib": 204777,
+          "private_kib": 157500
+        },
+        {
+          "rss_kib": 425220,
+          "pss_kib": 204777,
+          "private_kib": 157500
+        },
+        {
+          "rss_kib": 425220,
+          "pss_kib": 204777,
+          "private_kib": 157500
+        },
+        {
+          "rss_kib": 425220,
+          "pss_kib": 204777,
+          "private_kib": 157500
+        }
+      ],
+      "duration_seconds": 30.93696614200053,
+      "idle_cpu_percent_one_core": 0.09697137030922859,
+      "startup_cpu_seconds_first_settle_period": 1.83,
+      "median_pss_mib": 200.001953125,
+      "peak_pss_mib": 200.3486328125,
+      "median_rss_mib": 415.25390625,
+      "median_private_mib": 153.8125,
+      "round": 1
+    },
+    {
+      "app": "tauri",
+      "geometry": [
+        1280,
+        820
+      ],
+      "samples": [
+        {
+          "rss_kib": 426848,
+          "pss_kib": 206158,
+          "private_kib": 158820
+        },
+        {
+          "rss_kib": 426848,
+          "pss_kib": 206158,
+          "private_kib": 158820
+        },
+        {
+          "rss_kib": 426848,
+          "pss_kib": 206158,
+          "private_kib": 158820
+        },
+        {
+          "rss_kib": 426848,
+          "pss_kib": 206158,
+          "private_kib": 158820
+        },
+        {
+          "rss_kib": 426848,
+          "pss_kib": 206158,
+          "private_kib": 158820
+        },
+        {
+          "rss_kib": 426848,
+          "pss_kib": 206158,
+          "private_kib": 158820
+        },
+        {
+          "rss_kib": 426912,
+          "pss_kib": 206172,
+          "private_kib": 158824
+        },
+        {
+          "rss_kib": 426912,
+          "pss_kib": 206172,
+          "private_kib": 158824
+        },
+        {
+          "rss_kib": 426540,
+          "pss_kib": 205800,
+          "private_kib": 158452
+        },
+        {
+          "rss_kib": 426264,
+          "pss_kib": 205524,
+          "private_kib": 158176
+        },
+        {
+          "rss_kib": 426264,
+          "pss_kib": 205524,
+          "private_kib": 158176
+        },
+        {
+          "rss_kib": 426268,
+          "pss_kib": 205528,
+          "private_kib": 158180
+        },
+        {
+          "rss_kib": 426268,
+          "pss_kib": 205528,
+          "private_kib": 158180
+        },
+        {
+          "rss_kib": 426268,
+          "pss_kib": 205528,
+          "private_kib": 158180
+        },
+        {
+          "rss_kib": 426332,
+          "pss_kib": 205527,
+          "private_kib": 158180
+        },
+        {
+          "rss_kib": 426332,
+          "pss_kib": 205527,
+          "private_kib": 158180
+        },
+        {
+          "rss_kib": 426332,
+          "pss_kib": 205527,
+          "private_kib": 158180
+        },
+        {
+          "rss_kib": 426332,
+          "pss_kib": 205527,
+          "private_kib": 158180
+        },
+        {
+          "rss_kib": 426308,
+          "pss_kib": 205503,
+          "private_kib": 158156
+        },
+        {
+          "rss_kib": 426308,
+          "pss_kib": 205503,
+          "private_kib": 158156
+        },
+        {
+          "rss_kib": 426308,
+          "pss_kib": 205503,
+          "private_kib": 158156
+        },
+        {
+          "rss_kib": 426308,
+          "pss_kib": 205503,
+          "private_kib": 158156
+        },
+        {
+          "rss_kib": 426308,
+          "pss_kib": 205503,
+          "private_kib": 158156
+        },
+        {
+          "rss_kib": 426308,
+          "pss_kib": 205503,
+          "private_kib": 158156
+        },
+        {
+          "rss_kib": 426308,
+          "pss_kib": 205503,
+          "private_kib": 158156
+        },
+        {
+          "rss_kib": 426308,
+          "pss_kib": 205503,
+          "private_kib": 158156
+        },
+        {
+          "rss_kib": 426308,
+          "pss_kib": 205503,
+          "private_kib": 158156
+        },
+        {
+          "rss_kib": 426308,
+          "pss_kib": 205503,
+          "private_kib": 158156
+        },
+        {
+          "rss_kib": 426308,
+          "pss_kib": 205503,
+          "private_kib": 158156
+        }
+      ],
+      "duration_seconds": 30.54625587800001,
+      "idle_cpu_percent_one_core": 0.16368618203061325,
+      "startup_cpu_seconds_first_settle_period": 1.16,
+      "median_pss_mib": 200.7099609375,
+      "peak_pss_mib": 201.33984375,
+      "median_rss_mib": 416.31640625,
+      "median_private_mib": 154.47265625,
+      "round": 2
+    },
+    {
+      "app": "electron",
+      "geometry": [
+        1280,
+        820
+      ],
+      "samples": [
+        {
+          "rss_kib": 668188,
+          "pss_kib": 295812,
+          "private_kib": 184180
+        },
+        {
+          "rss_kib": 668288,
+          "pss_kib": 295816,
+          "private_kib": 184184
+        },
+        {
+          "rss_kib": 668288,
+          "pss_kib": 295816,
+          "private_kib": 184184
+        },
+        {
+          "rss_kib": 668288,
+          "pss_kib": 295816,
+          "private_kib": 184184
+        },
+        {
+          "rss_kib": 668288,
+          "pss_kib": 295816,
+          "private_kib": 184184
+        },
+        {
+          "rss_kib": 668288,
+          "pss_kib": 295816,
+          "private_kib": 184184
+        },
+        {
+          "rss_kib": 668288,
+          "pss_kib": 295816,
+          "private_kib": 184184
+        },
+        {
+          "rss_kib": 668288,
+          "pss_kib": 295816,
+          "private_kib": 184184
+        },
+        {
+          "rss_kib": 668288,
+          "pss_kib": 295816,
+          "private_kib": 184184
+        },
+        {
+          "rss_kib": 668288,
+          "pss_kib": 295816,
+          "private_kib": 184184
+        },
+        {
+          "rss_kib": 668288,
+          "pss_kib": 295816,
+          "private_kib": 184184
+        },
+        {
+          "rss_kib": 668288,
+          "pss_kib": 295816,
+          "private_kib": 184184
+        },
+        {
+          "rss_kib": 668288,
+          "pss_kib": 295816,
+          "private_kib": 184184
+        },
+        {
+          "rss_kib": 668288,
+          "pss_kib": 295816,
+          "private_kib": 184184
+        },
+        {
+          "rss_kib": 668288,
+          "pss_kib": 295816,
+          "private_kib": 184184
+        },
+        {
+          "rss_kib": 666028,
+          "pss_kib": 293216,
+          "private_kib": 181312
+        },
+        {
+          "rss_kib": 664196,
+          "pss_kib": 291384,
+          "private_kib": 179480
+        },
+        {
+          "rss_kib": 664196,
+          "pss_kib": 291384,
+          "private_kib": 179480
+        },
+        {
+          "rss_kib": 664196,
+          "pss_kib": 291384,
+          "private_kib": 179480
+        },
+        {
+          "rss_kib": 664196,
+          "pss_kib": 291384,
+          "private_kib": 179480
+        },
+        {
+          "rss_kib": 664196,
+          "pss_kib": 291384,
+          "private_kib": 179480
+        },
+        {
+          "rss_kib": 664196,
+          "pss_kib": 291384,
+          "private_kib": 179480
+        },
+        {
+          "rss_kib": 664196,
+          "pss_kib": 291384,
+          "private_kib": 179480
+        },
+        {
+          "rss_kib": 664196,
+          "pss_kib": 291384,
+          "private_kib": 179480
+        },
+        {
+          "rss_kib": 664196,
+          "pss_kib": 291384,
+          "private_kib": 179480
+        },
+        {
+          "rss_kib": 664684,
+          "pss_kib": 291694,
+          "private_kib": 179716
+        },
+        {
+          "rss_kib": 664712,
+          "pss_kib": 291722,
+          "private_kib": 179744
+        },
+        {
+          "rss_kib": 664712,
+          "pss_kib": 291722,
+          "private_kib": 179744
+        },
+        {
+          "rss_kib": 664712,
+          "pss_kib": 291722,
+          "private_kib": 179744
+        }
+      ],
+      "duration_seconds": 30.07925466100005,
+      "idle_cpu_percent_one_core": 0.3657005508937129,
+      "startup_cpu_seconds_first_settle_period": 1.14,
+      "median_pss_mib": 288.87890625,
+      "peak_pss_mib": 288.8828125,
+      "median_rss_mib": 652.52734375,
+      "median_private_mib": 179.86328125,
+      "round": 2
+    },
+    {
+      "app": "electron",
+      "geometry": [
+        1280,
+        820
+      ],
+      "samples": [
+        {
+          "rss_kib": 660400,
+          "pss_kib": 293625,
+          "private_kib": 184176
+        },
+        {
+          "rss_kib": 660496,
+          "pss_kib": 293625,
+          "private_kib": 184176
+        },
+        {
+          "rss_kib": 660496,
+          "pss_kib": 293625,
+          "private_kib": 184176
+        },
+        {
+          "rss_kib": 660496,
+          "pss_kib": 293625,
+          "private_kib": 184176
+        },
+        {
+          "rss_kib": 660496,
+          "pss_kib": 293625,
+          "private_kib": 184176
+        },
+        {
+          "rss_kib": 660496,
+          "pss_kib": 293625,
+          "private_kib": 184176
+        },
+        {
+          "rss_kib": 660496,
+          "pss_kib": 293625,
+          "private_kib": 184176
+        },
+        {
+          "rss_kib": 660496,
+          "pss_kib": 293625,
+          "private_kib": 184176
+        },
+        {
+          "rss_kib": 660496,
+          "pss_kib": 293625,
+          "private_kib": 184176
+        },
+        {
+          "rss_kib": 660496,
+          "pss_kib": 293625,
+          "private_kib": 184176
+        },
+        {
+          "rss_kib": 660496,
+          "pss_kib": 293625,
+          "private_kib": 184176
+        },
+        {
+          "rss_kib": 660496,
+          "pss_kib": 293625,
+          "private_kib": 184176
+        },
+        {
+          "rss_kib": 660496,
+          "pss_kib": 293625,
+          "private_kib": 184176
+        },
+        {
+          "rss_kib": 660496,
+          "pss_kib": 293625,
+          "private_kib": 184176
+        },
+        {
+          "rss_kib": 660496,
+          "pss_kib": 293625,
+          "private_kib": 184176
+        },
+        {
+          "rss_kib": 658444,
+          "pss_kib": 291253,
+          "private_kib": 181612
+        },
+        {
+          "rss_kib": 656604,
+          "pss_kib": 289413,
+          "private_kib": 179772
+        },
+        {
+          "rss_kib": 656604,
+          "pss_kib": 289412,
+          "private_kib": 179772
+        },
+        {
+          "rss_kib": 656604,
+          "pss_kib": 289412,
+          "private_kib": 179772
+        },
+        {
+          "rss_kib": 656604,
+          "pss_kib": 289412,
+          "private_kib": 179772
+        },
+        {
+          "rss_kib": 656604,
+          "pss_kib": 289412,
+          "private_kib": 179772
+        },
+        {
+          "rss_kib": 656604,
+          "pss_kib": 289412,
+          "private_kib": 179772
+        },
+        {
+          "rss_kib": 656604,
+          "pss_kib": 289412,
+          "private_kib": 179772
+        },
+        {
+          "rss_kib": 656604,
+          "pss_kib": 289412,
+          "private_kib": 179772
+        },
+        {
+          "rss_kib": 656604,
+          "pss_kib": 289412,
+          "private_kib": 179772
+        },
+        {
+          "rss_kib": 656604,
+          "pss_kib": 289412,
+          "private_kib": 179772
+        },
+        {
+          "rss_kib": 656604,
+          "pss_kib": 289412,
+          "private_kib": 179772
+        },
+        {
+          "rss_kib": 656604,
+          "pss_kib": 289412,
+          "private_kib": 179772
+        },
+        {
+          "rss_kib": 656604,
+          "pss_kib": 289412,
+          "private_kib": 179772
+        }
+      ],
+      "duration_seconds": 30.038213855999857,
+      "idle_cpu_percent_one_core": 0.29961834758701317,
+      "startup_cpu_seconds_first_settle_period": 1.07,
+      "median_pss_mib": 286.7431640625,
+      "peak_pss_mib": 286.7431640625,
+      "median_rss_mib": 644.921875,
+      "median_private_mib": 179.859375,
+      "round": 3
+    },
+    {
+      "app": "tauri",
+      "geometry": [
+        1280,
+        820
+      ],
+      "samples": [
+        {
+          "rss_kib": 425804,
+          "pss_kib": 205112,
+          "private_kib": 157768
+        },
+        {
+          "rss_kib": 425804,
+          "pss_kib": 205112,
+          "private_kib": 157768
+        },
+        {
+          "rss_kib": 425804,
+          "pss_kib": 205112,
+          "private_kib": 157768
+        },
+        {
+          "rss_kib": 425804,
+          "pss_kib": 205112,
+          "private_kib": 157768
+        },
+        {
+          "rss_kib": 425804,
+          "pss_kib": 205112,
+          "private_kib": 157768
+        },
+        {
+          "rss_kib": 425804,
+          "pss_kib": 205112,
+          "private_kib": 157768
+        },
+        {
+          "rss_kib": 425804,
+          "pss_kib": 205112,
+          "private_kib": 157768
+        },
+        {
+          "rss_kib": 425804,
+          "pss_kib": 205112,
+          "private_kib": 157768
+        },
+        {
+          "rss_kib": 425804,
+          "pss_kib": 205112,
+          "private_kib": 157768
+        },
+        {
+          "rss_kib": 425676,
+          "pss_kib": 204964,
+          "private_kib": 157640
+        },
+        {
+          "rss_kib": 425668,
+          "pss_kib": 204948,
+          "private_kib": 157632
+        },
+        {
+          "rss_kib": 425668,
+          "pss_kib": 204947,
+          "private_kib": 157632
+        },
+        {
+          "rss_kib": 425668,
+          "pss_kib": 204947,
+          "private_kib": 157632
+        },
+        {
+          "rss_kib": 425672,
+          "pss_kib": 204951,
+          "private_kib": 157636
+        },
+        {
+          "rss_kib": 427232,
+          "pss_kib": 206511,
+          "private_kib": 159196
+        },
+        {
+          "rss_kib": 427232,
+          "pss_kib": 206449,
+          "private_kib": 159132
+        },
+        {
+          "rss_kib": 427232,
+          "pss_kib": 206449,
+          "private_kib": 159132
+        },
+        {
+          "rss_kib": 427232,
+          "pss_kib": 206449,
+          "private_kib": 159132
+        },
+        {
+          "rss_kib": 427232,
+          "pss_kib": 206449,
+          "private_kib": 159132
+        },
+        {
+          "rss_kib": 427232,
+          "pss_kib": 206449,
+          "private_kib": 159132
+        },
+        {
+          "rss_kib": 427232,
+          "pss_kib": 206449,
+          "private_kib": 159132
+        },
+        {
+          "rss_kib": 427232,
+          "pss_kib": 206449,
+          "private_kib": 159132
+        },
+        {
+          "rss_kib": 427232,
+          "pss_kib": 206449,
+          "private_kib": 159132
+        },
+        {
+          "rss_kib": 427232,
+          "pss_kib": 206449,
+          "private_kib": 159132
+        },
+        {
+          "rss_kib": 425760,
+          "pss_kib": 204977,
+          "private_kib": 157660
+        },
+        {
+          "rss_kib": 425688,
+          "pss_kib": 204905,
+          "private_kib": 157588
+        },
+        {
+          "rss_kib": 425688,
+          "pss_kib": 204905,
+          "private_kib": 157588
+        },
+        {
+          "rss_kib": 425688,
+          "pss_kib": 204905,
+          "private_kib": 157588
+        },
+        {
+          "rss_kib": 426036,
+          "pss_kib": 205253,
+          "private_kib": 157936
+        },
+        {
+          "rss_kib": 426748,
+          "pss_kib": 205965,
+          "private_kib": 158648
+        }
+      ],
+      "duration_seconds": 30.92094602399993,
+      "idle_cpu_percent_one_core": 0.8408539628709795,
+      "startup_cpu_seconds_first_settle_period": 1.0,
+      "median_pss_mib": 200.3046875,
+      "peak_pss_mib": 201.6708984375,
+      "median_rss_mib": 415.82421875,
+      "median_private_mib": 154.0703125,
+      "round": 3
+    }
+  ],
+  "summary": {
+    "electron": {
+      "median_pss_mib": 288.2646484375,
+      "peak_pss_mib": 288.2685546875,
+      "median_rss_mib": 645.94140625,
+      "median_private_mib": 179.86328125,
+      "idle_cpu_percent_one_core": 0.3657005508937129,
+      "startup_cpu_seconds_first_settle_period": 1.14
+    },
+    "tauri": {
+      "median_pss_mib": 200.3046875,
+      "peak_pss_mib": 201.33984375,
+      "median_rss_mib": 415.82421875,
+      "median_private_mib": 154.0703125,
+      "idle_cpu_percent_one_core": 0.16368618203061325,
+      "startup_cpu_seconds_first_settle_period": 1.16
+    }
+  },
+  "packages": {
+    "electron": {
+      "deb_bytes": 106197074,
+      "installed_kib": 354918
+    },
+    "tauri": {
+      "deb_bytes": 13364050,
+      "installed_kib": 26138
+    }
+  },
+  "environment": {
+    "os": "Ubuntu 24.04 x86_64 X11",
+    "kernel": "7.0.0-34-generic",
+    "cpu": "AMD Ryzen 7 5700U with Radeon Graphics",
+    "logical_cpus": 16,
+    "electron": "33.4.11",
+    "tauri": "2.12.0",
+    "webkitgtk": "2.52.6",
+    "rust": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "app_source_commit": "043beea06497d41eeb30940c57fe1455f8c496e4",
+    "completed_at_utc": "2026-09-27T15:38:17.942921+00:00"
+  },
+  "cleanup": "Synthetic benchmark OS-store key removed after all measured runs."
+}

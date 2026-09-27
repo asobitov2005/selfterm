@@ -1,6 +1,8 @@
 # SelfTerm: Rust migratsiyasi yo‘l xaritasi
 
-Sana: 2026-09-27. Holat: ko‘rib chiqish uchun tayyor reja; Rust implementatsiyasi hali boshlanmagan.
+Sana: 2026-09-27. Holat: Rust migratsiyasi davom etmoqda. Bajarilgan qismlar va qolgan ishlar [implementation-status.md](implementation-status.md) da qayd etiladi.
+
+Electron va Tauri release buildlarining Linux benchmarki: [natijalar](benchmarks/linux-2026-09-27.md).
 
 ## Maqsad
 
