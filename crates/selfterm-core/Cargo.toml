@@ -1,0 +1,22 @@
+[package]
+name = "selfterm-core"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[dependencies]
+selfterm-protocol = { path = "../selfterm-protocol" }
+serde.workspace = true
+serde_json.workspace = true
+uuid.workspace = true
+thiserror.workspace = true
+zeroize.workspace = true
+base64.workspace = true
+argon2 = "=0.6.0"
+chacha20poly1305 = "=0.11.0"
+getrandom = "0.4"
+rusqlite = { version = "=0.40.2", features = ["bundled", "backup"] }
+
+[dev-dependencies]
+tempfile = "3"
+
