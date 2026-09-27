@@ -8,6 +8,14 @@ pub struct Storage {
     connection: Connection,
 }
 impl Storage {
+    pub fn vault_ids(&self) -> Result<Vec<Uuid>> {
+        let mut statement = self
+            .connection
+            .prepare("SELECT vault_id FROM local_vaults ORDER BY vault_id")?;
+        let rows = statement.query_map([], |row| row.get::<_, String>(0))?;
+        rows.map(|row| Uuid::parse_str(&row?).map_err(|_| Error::CorruptStorage))
+            .collect()
+    }
     pub fn open(path: &Path) -> Result<Self> {
         if path == Path::new(":memory:") || !path.is_absolute() {
             return Err(Error::InvalidInput(

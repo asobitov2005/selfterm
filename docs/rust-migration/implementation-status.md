@@ -10,10 +10,11 @@ The migration is developed on `feat/rust-migration`. The Electron baseline remai
 - Strict envelope validation before expensive key derivation; decimal string counters preserve the full unsigned 64-bit range.
 - Native unlocked vault service with host/settings changes, encrypted credential storage, redacted renderer views, deletion tombstones and secret cleanup.
 - Lock drops native secret/key owners. Wrong authentication does not replace an existing unlocked state with an empty vault.
+- Tauri application connects the existing UI to native vault creation/unlock, encrypted host CRUD and appearance settings. Creation shows a recovery key once. Native worker isolates SQLite/KDF work from the WebView event loop; manual and 15-minute idle locking drop unlocked state.
 - Tests cover reopening, wrong passwords, recovery, authenticated metadata tampering, unsupported KDF parameters, generation conflicts, corrupt file preservation, renderer redaction and absence of plaintext fixture labels/passwords in database files.
 
 ## Still required
 
-Production Tauri integration with the existing UI; automatic idle/OS lock; recovery/password rotation UI; verified legacy import; full SSH host trust and lifecycle; SFTP; synchronization server and client; mobile packaging; RDP/VNC. Platform feasibility results remain in `feasibility.md`.
+OS lock integration; password rotation UI; verified legacy import; full SSH host trust and lifecycle; SFTP; synchronization server and client; mobile packaging; RDP/VNC. Platform feasibility results remain in `feasibility.md`.
 
-Run `cargo test --workspace` and `cargo clippy --workspace --all-targets -- -D warnings` from the repository root. Linux feasibility probe instructions remain in `probes/cross-platform/README.md`; that probe is separate from the production application.
+Run `cargo test -p selfterm-core -p selfterm-protocol` for the portable core. On a native Tauri development machine run `cargo clippy --workspace --all-targets -- -D warnings`. Client launch instructions are in `apps/client/README.md`. Linux feasibility probe instructions remain in `probes/cross-platform/README.md`; that probe is separate from the production application.

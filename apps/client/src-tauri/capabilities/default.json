@@ -1,0 +1,6 @@
+{
+  "identifier": "main-window",
+  "description": "Local SelfTerm application window",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}

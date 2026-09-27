@@ -1,6 +1,7 @@
 [workspace]
 resolver = "2"
-members = ["crates/selfterm-core", "crates/selfterm-protocol"]
+members = ["crates/selfterm-core", "crates/selfterm-protocol", "apps/client/src-tauri"]
+default-members = ["crates/selfterm-core", "crates/selfterm-protocol"]
 exclude = ["probes/cross-platform/src-tauri", "probes/cross-platform/ssh-client"]
 
 [workspace.package]

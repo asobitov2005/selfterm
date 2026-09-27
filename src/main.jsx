@@ -60,10 +60,10 @@ import '@fontsource/monaspace-neon/500.css';
 import '@fontsource/monaspace-neon/700.css';
 import '@xterm/xterm/css/xterm.css';
 import './styles.css';
-import App from './App.jsx';
+import NativeRoot from './NativeRoot.jsx';
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <NativeRoot />
   </React.StrictMode>,
 );

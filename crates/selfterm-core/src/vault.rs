@@ -31,6 +31,9 @@ pub struct VaultService {
 }
 
 impl VaultService {
+    pub fn vault_ids(&self) -> Result<Vec<Uuid>> {
+        self.storage.vault_ids()
+    }
     pub fn new(storage: Storage) -> Self {
         Self {
             storage,
@@ -58,6 +61,18 @@ impl VaultService {
         self.lock();
         let (envelope, generation) = self.storage.load(id)?.ok_or(Error::CorruptStorage)?;
         let (key, payload) = crypto::unlock(&envelope, passphrase)?;
+        self.unlocked = Some(Unlocked {
+            envelope,
+            generation,
+            key,
+            payload,
+        });
+        self.view()
+    }
+    pub fn recover(&mut self, id: Uuid, recovery_key: &str) -> Result<PublicVault> {
+        self.lock();
+        let (envelope, generation) = self.storage.load(id)?.ok_or(Error::CorruptStorage)?;
+        let (key, payload) = crypto::recover(&envelope, recovery_key)?;
         self.unlocked = Some(Unlocked {
             envelope,
             generation,
