@@ -12,7 +12,7 @@ fn secrets_stay_native_and_locked_service_cannot_read_or_mutate() {
     let dir = tempfile::tempdir().unwrap();
     let path = dir.path().join("vault.sqlite3");
     let mut service = VaultService::new(Storage::open(&path).unwrap());
-    let (view, recovery) = service.create("public fixture passphrase").unwrap();
+    let (view, recovery) = service.create("1").unwrap();
     let vault_id = view.id;
     let host_id = Uuid::new_v4();
     let sentinel = b"fixture-password-never-in-renderer-or-database";
@@ -47,9 +47,7 @@ fn secrets_stay_native_and_locked_service_cannot_read_or_mutate() {
     assert!(matches!(service.view(), Err(Error::Locked)));
     assert!(matches!(service.credential(host_id), Err(Error::Locked)));
     assert!(matches!(service.delete_host(host_id), Err(Error::Locked)));
-    service
-        .unlock(vault_id, "public fixture passphrase")
-        .unwrap();
+    service.unlock(vault_id, "1").unwrap();
     assert_eq!(service.view().unwrap().hosts.len(), 1);
     service.lock();
     assert!(service.recover(vault_id, "invalid-recovery").is_err());

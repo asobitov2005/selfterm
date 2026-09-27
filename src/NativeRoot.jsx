@@ -68,7 +68,7 @@ export default function NativeRoot() {
       </> : <form onSubmit={submit}>
         {ids?.length > 1 && <label className="wide-field">Vault<select value={selected} onChange={(event) => setSelected(event.target.value)}>{ids.map((id) => <option key={id}>{id}</option>)}</select></label>}
         <label className="wide-field">{recovering ? 'Recovery key' : 'Passphrase'}<input type="password" autoFocus autoComplete={recovering ? 'off' : ids?.length ? 'current-password' : 'new-password'} value={password} onChange={(event) => setPassword(event.target.value)} required /></label>
-        {!ids?.length && <><p className="vault-hint">Use at least 16 characters. Spaces count and are preserved.</p><label className="wide-field">Confirm passphrase<input type="password" autoComplete="new-password" value={confirmation} onChange={(event) => setConfirmation(event.target.value)} required /></label></>}
+        {!ids?.length && <><p className="vault-hint">Your passphrase is preserved exactly, including spaces.</p><label className="wide-field">Confirm passphrase<input type="password" autoComplete="new-password" value={confirmation} onChange={(event) => setConfirmation(event.target.value)} required /></label></>}
         <button className="primary-button full" disabled={busy || ids === null}><Lock size={16} />{busy ? 'Opening…' : ids?.length ? 'Unlock workspace' : 'Create encrypted vault'}</button>
         {Boolean(ids?.length) && <button className="vault-recovery-toggle" type="button" disabled={busy} onClick={() => { setRecovering(!recovering); setPassword(''); setError(''); }}>{recovering ? 'Use passphrase instead' : 'Use recovery key'}</button>}
       </form>}

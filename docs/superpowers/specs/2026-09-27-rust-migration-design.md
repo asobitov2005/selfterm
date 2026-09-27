@@ -167,7 +167,7 @@ Taklif: RustCrypto `argon2`, `chacha20poly1305`, `hkdf`, `sha2`, `zeroize`, `sec
 
 - Har vault uchun random 32-byte data encryption key (DEK), `key_epoch = 1`.
 - Payload: XChaCha20-Poly1305, har encryption uchun random 24-byte nonce; tag crate ciphertext’iga qo‘shiladi.
-- Vault passphrase: kamida 16 Unicode scalar, maksimum 1024 UTF-8 bytes. UTF-8 aynan ishlatiladi; yashirin trim/normalization yo‘q.
+- Vault passphrase: bo‘sh bo‘lmasin, maksimum 1024 UTF-8 bytes. Foydalanuvchi talabiga ko‘ra minimal 16 belgilik cheklov olib tashlandi; qisqa parollar ham qabul qilinadi. UTF-8 aynan ishlatiladi; yashirin trim/normalization yo‘q.
 - Passphrase KEK: Argon2id v19, `m=65536 KiB`, `t=3`, `p=4`, output 32 bytes; salt 16 random bytes. Parametrlar wrapper’da saqlanadi. Bu RFC 9106’dagi memory-constrained profilga asoslangan boshlang‘ich tanlov; M1’da low-end mobile benchmark bilan baholanadi. [RFC 9106](https://www.rfc-editor.org/info/rfc9106/)
 - Recovery key: random 32 bytes, base64url-no-pad. Alohida wrapper shu key bilan DEK’ni shifrlaydi; recovery string faqat clientda ko‘rsatiladi, serverga yuborilmaydi.
 - Har key wrapper’da random 24-byte nonce. Passphrase wrapper KEK bilan, recovery wrapper recovery key bilan encrypted DEK’ni saqlaydi.

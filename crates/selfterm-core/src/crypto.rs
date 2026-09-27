@@ -23,9 +23,9 @@ fn aad(label: &str, id: Uuid, epoch: u64) -> Vec<u8> {
     bytes
 }
 fn derive(passphrase: &str, salt: &[u8; 16]) -> Result<Zeroizing<[u8; 32]>> {
-    if passphrase.chars().count() < 16 || passphrase.len() > 1024 {
+    if passphrase.is_empty() || passphrase.len() > 1024 {
         return Err(Error::InvalidInput(
-            "passphrase must contain at least 16 characters and at most 1024 bytes",
+            "passphrase must not be empty or exceed 1024 bytes",
         ));
     }
     let params = Params::new(65536, 3, 4, Some(32)).map_err(|_| Error::CorruptStorage)?;
